@@ -1,0 +1,40 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: build-push
+  namespace: idi2021
+spec:
+  params:
+  - name: pathToContext
+    description:
+      The build directory used by img
+    default: /workspace/source-repo
+  - name: pathToDockerFile
+    type: string
+    description: The path to the dockerfile to build
+    default: $(resources.inputs.source-repo.path)/Dockerfile
+  resources:
+    inputs:
+      - name: source-repo
+        type: git
+    outputs:
+      - name: builtImage
+        type: image
+  steps:
+    - name: maven-package
+      image: gcr.io/cloud-builders/mvn
+      workingDir: $(params.pathToContext)
+      command:
+        - mvn
+      args:
+        - package
+        - "-Dmaven.test.skip=true"
+    - name: build-and-push
+      image: gcr.io/kaniko-project/executor:latest
+      command:
+        - /kaniko/executor
+      args:
+        - --dockerfile=$(params.pathToDockerFile)
+        - --destination=$(resources.outputs.builtImage.url)
+        - --context=$(params.pathToContext)
+        - --build-arg=JAR_FILE=target/sample-0.0.1-SNAPSHOT.jar

@@ -1,0 +1,9 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: javasample-image
+spec:
+  type: image
+  params:
+    - name: url
+      value: europe-west1-docker.pkg.dev/galloro-demos/tektoncd/javasample

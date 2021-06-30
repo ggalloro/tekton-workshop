@@ -1,0 +1,11 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: echo-hello-parameters-task-run
+  namespace: idi2021
+spec:
+  taskRef:
+    name: echo-hello-parameter
+  params:
+    - name: recipient
+      value: '#IDI2021'
