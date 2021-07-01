@@ -2,6 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: gke-deploy
+  namespace: idi2021
   labels:
     app.kubernetes.io/version: "0.1"
   annotations:
@@ -12,17 +13,43 @@ spec:
   description: >-
     This Task deploys an application to a Google Kubernetes Engine
     cluster using gke-deploy
-
-  workspaces:
-  - name: source
+  resources:
+    inputs:
+      - name: source
+        type: git
+      - name: image
+        type: image
   params:
-  - name: ARGS
-    type: array
-    description: gke-deploy CLI arguments to run
-    default: ["--help"]
+  - name: pathToContext
+    description:
+      The build directory used by img
+    default: /workspace/source
+  - name: k8sManifest
+    description:
+      K8s Manifest to Apply
+    default: /workspace/source/kubernetes/javasample.yaml
+  - name: clusterName
+    type: string
+    description: Name of target GKE cluster to deploy to.
+    default: 'gke-cluster'
+  - name: clusterLocation
+    type: string
+    description: Zone/region of target GKE cluster to deploy to.
+    default: 'europe-west1-b'
+  - name: clusterProject
+    type: string
+    description: Project of target GKE cluster to deploy to.
+    default: 'galloro-demos'
   steps:
   - name: gke-deploy
     image: gcr.io/cloud-builders/gke-deploy@sha256:6d18a1efabf8a7ea7f2169c93f3e01fc5b8247b12099618c496ab097aaae341f
     command: ["/gke-deploy"]
-    workingDir: $(workspaces.source.path)
-    args: ["$(params.ARGS)"]
+    workingDir: $(params.pathToContext)
+    args:
+    - 'run'
+    - '--image=$(resources.inputs.image.url)'
+    - '--filename=$(params.k8sManifest)'
+    - '--cluster=$(params.clusterName)'
+    - '--location=$(params.clusterLocation)'
+    - '--project=$(params.clusterProject)'
+    - '--output=/var/tmp/gke-deploy'

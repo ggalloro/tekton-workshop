@@ -2,6 +2,7 @@ apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
   name: javasample-git
+  namespace: idi2021
 spec:
   type: git
   params:
