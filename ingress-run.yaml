@@ -1,0 +1,23 @@
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: create-ingress-run
+  namespace: idi2021
+spec:
+  taskRef:
+    name: create-ingress
+  params:
+  - name: CreateCertificate
+    value: "true"
+  - name: CertificateKeyPassphrase
+    value: asecretphrase
+  - name: CertificateSecretName
+    value: ingresssecret
+  - name: ExternalDomain
+    value: tekton.agilework.info
+  - name: Service
+    value: el-javasample
+  - name: ServicePort
+    value: "8080"
+  timeout: 1000s
+  serviceAccountName: tekton
