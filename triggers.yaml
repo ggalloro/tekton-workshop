@@ -24,11 +24,11 @@ spec:
     spec:
       params:
       - name: clusterName
-        value: $(params.clusterName)
+        value: $(tt.params.clusterName)
       - name: clusterLocation
-        value: $(params.clusterLocation)
+        value: $(tt.params.clusterLocation)
       - name: clusterProject
-        value: $(params.clusterProject)
+        value: $(tt.params.clusterProject)
       pipelineRef:
         name: build-push-gke-deploy
       resources:
