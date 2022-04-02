@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
   name: javasample-image
-  namespace: idi2021
+  namespace: kcditaly
 spec:
   type: image
   params:

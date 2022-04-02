@@ -3,7 +3,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: build-push-gke-deploy
-  namespace: idi2021
+  namespace: kcditaly
   labels:
     app.kubernetes.io/version: '0.1'
   annotations:

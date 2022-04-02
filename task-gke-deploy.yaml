@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: gke-deploy
-  namespace: idi2021
+  namespace: kcditaly
   labels:
     app.kubernetes.io/version: "0.1"
   annotations:

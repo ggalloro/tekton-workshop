@@ -2,7 +2,7 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
   name: javasample-build-and-deploy
-  namespace: idi2021
+  namespace: kcditaly
 spec:
   params:
   - description: The repository url to build and deploy.
@@ -20,7 +20,7 @@ spec:
     kind: PipelineRun
     metadata:
       generateName: javasample-build-and-deploy-
-      namespace: idi2021
+      namespace: kcditaly
     spec:
       params:
       - name: clusterName
@@ -52,7 +52,7 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerBinding
 metadata:
   name: javasample-build-and-deploy
-  namespace: idi2021
+  namespace: kcditaly
 spec:
   params:
   - name: URL
@@ -60,7 +60,7 @@ spec:
   - name: REVISION
     value: $(body.head_commit.id)
   - name: NAMESPACE
-    value: idi2021
+    value: kcditaly
   - name: clusterName
     value: gke-cluster
   - name: clusterLocation
@@ -72,7 +72,7 @@ apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
 metadata:
   name: javasample
-  namespace: idi2021
+  namespace: kcditaly
 spec:
   resources:
     kubernetesResource:

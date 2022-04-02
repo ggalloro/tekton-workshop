@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: create-ingress
-  namespace: idi2021
+  namespace: kcditaly
 spec:
   volumes:
   - name: work
