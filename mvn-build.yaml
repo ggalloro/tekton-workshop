@@ -1,0 +1,13 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: mvn-build
+  namespace: kcditaly
+spec:
+  workspaces:
+    - name: source
+  steps:
+    - name: maven-package
+      image: gcr.io/cloud-builders/mvn
+      workingDir: $(workspaces.source.path)
+      args: ['package','-Dmaven.test.skip=true']

@@ -1,7 +1,8 @@
+# DEPRECATED: TO BE REMOVED
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: gke-deploy
+  name: old-gke-deploy
   namespace: kcditaly
   labels:
     app.kubernetes.io/version: "0.1"

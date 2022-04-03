@@ -1,0 +1,40 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: pipeline-test
+  namespace: kcditaly
+spec:
+  params:
+    - name: git-url
+    - name: image-name
+  workspaces:
+    - name: source
+  tasks:
+    - name: fetch-from-git
+      taskRef:
+        name: git-clone
+      params:
+        - name: url
+          value: $(params.git-url)
+      workspaces:
+        - name: source
+          workspace: source
+    - name: mvn-build
+      taskRef:
+        name: mvn-build
+      runAfter:
+        - fetch-from-git
+      workspaces:
+        - name: source
+          workspace: source
+    - name: build-image
+      taskRef:
+        name: kaniko
+      runAfter:
+        - mvn-build
+      params:
+        - name: IMAGE
+          value: $(params.image-name)
+      workspaces:
+        - name: source
+          workspace: source
