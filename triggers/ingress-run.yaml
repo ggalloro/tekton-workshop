@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: TaskRun
 metadata:
   name: create-ingress-run
-  namespace: kcditaly
+  namespace: kcn-mi
 spec:
   taskRef:
     name: create-ingress

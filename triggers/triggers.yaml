@@ -1,8 +1,8 @@
-apiVersion: triggers.tekton.dev/v1alpha1
+apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
   name: javasample-build-and-deploy
-  namespace: kcditaly
+  namespace: kcn-mi
 spec:
   params:
   - description: The repository url to build and deploy.
@@ -20,8 +20,12 @@ spec:
     kind: PipelineRun
     metadata:
       generateName: javasample-build-and-deploy-
-      namespace: kcditaly
+      namespace: kcn-mi
     spec:
+      workspaces:
+        - name: source
+          persistentVolumeClaim:
+            claimName: source-pvc
       params:
       - name: clusterName
         value: $(tt.params.clusterName)
@@ -30,37 +34,22 @@ spec:
       - name: clusterProject
         value: $(tt.params.clusterProject)
       pipelineRef:
-        name: build-push-gke-deploy
-      resources:
-      - name: source-repo
-        resourceSpec:
-          params:
-          - name: revision
-            value: $(tt.params.REVISION)
-          - name: url
-            value: $(tt.params.URL)
-          type: git
-      - name: builtImage
-        resourceSpec:
-          params:
-          - name: url
-            value: europe-west1-docker.pkg.dev/galloro-demos/tektoncd/javasample
-          type: image
+        name: pipeline-e2e
       serviceAccountName: tekton
 ---
-apiVersion: triggers.tekton.dev/v1alpha1
+apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: javasample-build-and-deploy
-  namespace: kcditaly
+  namespace: kcn-mi
 spec:
   params:
   - name: URL
-    value: https://github.com/$(body.repository.full_name)
+    value: $(body.repository.url)
   - name: REVISION
     value: $(body.head_commit.id)
   - name: NAMESPACE
-    value: kcditaly
+    value: kcn-mi
   - name: clusterName
     value: gke-cluster
   - name: clusterLocation
@@ -68,11 +57,11 @@ spec:
   - name: clusterProject
     value: galloro-demos
 ---
-apiVersion: triggers.tekton.dev/v1alpha1
+apiVersion: triggers.tekton.dev/v1beta1
 kind: EventListener
 metadata:
   name: javasample
-  namespace: kcditaly
+  namespace: kcn-mi
 spec:
   resources:
     kubernetesResource:

@@ -1,0 +1,67 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: pipeline-e2e
+  namespace: kcn-mi
+spec:
+  params:
+    - name: git-url
+      default: https://github.com/ggalloro/javasample-tkn/
+    - name: image-name
+      default: europe-west1-docker.pkg.dev/galloro-demos/tektoncd/javasample
+    - name: clusterName
+      default: gke-cluster
+    - name: clusterLocation
+      default: europe-west1-b
+    - name: clusterProject
+      default: galloro-demos
+  workspaces:
+    - name: source
+  tasks:
+    - name: git-clone
+      taskRef:
+        name: git-clone
+      params:
+        - name: url
+          value: $(params.git-url)
+      workspaces:
+        - name: source
+          workspace: source
+    - name: mvn-build
+      taskRef:
+        name: mvn-build
+      runAfter:
+        - git-clone
+      workspaces:
+        - name: source
+          workspace: source
+    - name: image-build
+      taskRef:
+        name: image-build
+      runAfter:
+        - mvn-build
+      params:
+        - name: IMAGE
+          value: $(params.image-name)
+        - name: commit
+          value: "$(tasks.git-clone.results.commit)"
+      workspaces:
+        - name: source
+          workspace: source
+    - name: gke-deploy
+      taskRef:
+        name: gke-deploy
+      runAfter:
+        - image-build
+      params:
+      - name: ARGS
+        value:
+        - run
+        - --filename=$(workspaces.source.path)/kubernetes/javasample.yaml
+        - --cluster=$(params.clusterName)
+        - --location=$(params.clusterLocation)
+        - --project=$(params.clusterProject)
+        - --image=$(tasks.image-build.results.IMAGE_URL)
+      workspaces:
+        - name: source
+          workspace: source

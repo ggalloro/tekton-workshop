@@ -2,10 +2,10 @@ apiVersion: tekton.dev/v1beta1
 kind: TaskRun
 metadata:
   name: echo-hello-parameters-task-run
-  namespace: kcditaly
+  namespace: kcn-mi
 spec:
   taskRef:
     name: echo-hello-parameter
   params:
     - name: recipient
-      value: 'kcditaly'
+      value: 'kcn-mi'

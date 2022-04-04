@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: mvn-build
-  namespace: kcditaly
+  namespace: kcn-mi
 spec:
   workspaces:
     - name: source

@@ -3,7 +3,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: old-build-push
-  namespace: kcditaly
+  namespace: kcn-mi
 spec:
   params:
   - name: pathToContext

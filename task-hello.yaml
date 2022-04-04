@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: echo-hello-world
-  namespace: kcditaly
+  namespace: kcn-mi
 spec:
   steps:
     - name: echo

@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: echo-hello-parameter
-  namespace: kcditaly
+  namespace: kcn-mi
 spec:
   params:
     - name: recipient
