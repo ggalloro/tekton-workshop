@@ -1,11 +1,11 @@
 apiVersion: tekton.dev/v1beta1
 kind: TaskRun
 metadata:
-  name: echo-hello-parameters-task-run
+  name: hello-parameters-taskrun
   namespace: kcn-mi
 spec:
   taskRef:
-    name: echo-hello-parameter
+    name: hello-parameters
   params:
     - name: recipient
-      value: 'kcn-mi'
+      value: 'KCN Milano !'

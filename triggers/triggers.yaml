@@ -1,7 +1,7 @@
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
-  name: javasample-build-and-deploy
+  name: tt-pipeline-e2e
   namespace: kcn-mi
 spec:
   params:
@@ -19,7 +19,7 @@ spec:
   - apiVersion: tekton.dev/v1beta1
     kind: PipelineRun
     metadata:
-      generateName: javasample-build-and-deploy-
+      generateName: pipelinerun-e2e-
       namespace: kcn-mi
     spec:
       workspaces:
@@ -40,7 +40,7 @@ spec:
 apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
-  name: javasample-build-and-deploy
+  name: tb-pipeline-e2e
   namespace: kcn-mi
 spec:
   params:
@@ -76,6 +76,6 @@ spec:
   triggers:
   - bindings:
     - kind: TriggerBinding
-      ref: javasample-build-and-deploy
+      ref: tb-pipeline-e2e
     template:
-      ref: javasample-build-and-deploy
+      ref: tt-pipeline-e2e

@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: echo-hello-parameter
+  name: hello-parameters
   namespace: kcn-mi
 spec:
   params:
