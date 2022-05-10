@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: hello
-  namespace: kcn-mi
+  namespace: devopsdays
 spec:
   steps:
     - name: echo

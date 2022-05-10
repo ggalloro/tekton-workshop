@@ -2,7 +2,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: source-pvc
-  namespace: kcn-mi
+  namespace: devopsdays
 spec:
   resources:
     requests:

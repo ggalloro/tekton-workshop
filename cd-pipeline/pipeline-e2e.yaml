@@ -2,7 +2,7 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: pipeline-e2e
-  namespace: kcn-mi
+  namespace: devopsdays
 spec:
   params:
     - name: git-url

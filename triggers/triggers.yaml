@@ -2,7 +2,7 @@ apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
   name: tt-pipeline-e2e
-  namespace: kcn-mi
+  namespace: devopsdays
 spec:
   params:
   - description: The repository url to build and deploy.
@@ -20,7 +20,7 @@ spec:
     kind: PipelineRun
     metadata:
       generateName: pipelinerun-e2e-
-      namespace: kcn-mi
+      namespace: devopsdays
     spec:
       workspaces:
         - name: source
@@ -41,7 +41,7 @@ apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: tb-pipeline-e2e
-  namespace: kcn-mi
+  namespace: devopsdays
 spec:
   params:
   - name: URL
@@ -49,7 +49,7 @@ spec:
   - name: REVISION
     value: $(body.head_commit.id)
   - name: NAMESPACE
-    value: kcn-mi
+    value: devopsdays
   - name: clusterName
     value: gke-cluster
   - name: clusterLocation
@@ -61,7 +61,7 @@ apiVersion: triggers.tekton.dev/v1beta1
 kind: EventListener
 metadata:
   name: javasample
-  namespace: kcn-mi
+  namespace: devopsdays
 spec:
   resources:
     kubernetesResource:
