@@ -8,4 +8,4 @@ spec:
     name: hello-parameters
   params:
     - name: recipient
-      value: 'KCN Milano !'
+      value: 'DevOpsDays Geneva !'
