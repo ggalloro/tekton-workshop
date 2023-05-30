@@ -2,7 +2,6 @@ apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: pipeline-e2e
-  namespace: devopsdays
 spec:
   params:
     - name: git-url
@@ -12,7 +11,7 @@ spec:
     - name: clusterName
       default: gke-cluster
     - name: clusterLocation
-      default: europe-west1-b
+      default: europe-west1
     - name: clusterProject
       default: galloro-demos
   workspaces:

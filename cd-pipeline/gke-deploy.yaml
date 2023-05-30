@@ -2,7 +2,6 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: gke-deploy
-  namespace: devopsdays
   labels:
     app.kubernetes.io/version: "0.1"
   annotations:

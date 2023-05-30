@@ -2,7 +2,6 @@ apiVersion: tekton.dev/v1beta1
 kind: TaskRun
 metadata:
   name: hello-parameters-taskrun
-  namespace: devopsdays
 spec:
   taskRef:
     name: hello-parameters

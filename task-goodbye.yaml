@@ -2,7 +2,6 @@ apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
   name: goodbye
-  namespace: devopsdays
 spec:
   steps:
     - name: echo
