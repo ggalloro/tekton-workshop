@@ -26,19 +26,11 @@ spec:
       workspaces:
         - name: source
           workspace: source
-    - name: mvn-build
-      taskRef:
-        name: mvn-build
-      runAfter:
-        - git-clone
-      workspaces:
-        - name: source
-          workspace: source
     - name: image-build
       taskRef:
         name: image-build
       runAfter:
-        - mvn-build
+        - git-clone
       params:
         - name: IMAGE
           value: $(params.image-name)
