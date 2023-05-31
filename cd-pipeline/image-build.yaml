@@ -27,8 +27,6 @@ spec:
   workspaces:
     - name: source
       description: Holds the context and Dockerfile
-    - name: cache
-      description: Holds Kaniko base images cache
   results:
     - name: IMAGE_DIGEST
       description: Digest of the image just built.

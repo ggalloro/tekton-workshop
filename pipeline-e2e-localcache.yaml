@@ -16,6 +16,7 @@ spec:
       default: galloro-demos
   workspaces:
     - name: source
+    - name: cache
   tasks:
     - name: git-clone
       taskRef:
@@ -39,6 +40,8 @@ spec:
       workspaces:
         - name: source
           workspace: source
+        - name: cache
+          workspace: cache
     - name: gke-deploy
       taskRef:
         name: gke-deploy
